@@ -42,8 +42,6 @@
 
 更多提交类型、Commit 和 PR 示例见 [Commit 与 PR 案例](docs/commit-and-pr-examples.md)。
 
-C++ 注释规范见 [C++ 注释规范](docs/cpp-comment-guidelines.md)。
-
 破坏兼容性时，在类型后或 scope 后加 `!`，并在提交信息中使用 `BREAKING CHANGE:` 说明迁移办法：
 
 ```text
@@ -71,4 +69,12 @@ Closes #
 
 PR 默认由至少一名具备权限的维护者独立完成人工审核后合并。
 
+## 版本号规范
+
 版本号规则见 [版本控制规范](VERSIONING.md)。
+
+## 编码规范
+
+C++ 编码规范见 [C++ 编码规范](docs/cpp-coding-guidelines.md)。
+
+C++ 注释规范见 [C++ 注释规范](docs/cpp-doxygen-introduction.md)。
