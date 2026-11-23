@@ -6,6 +6,14 @@
 - **禁止**：不得使用。
 - **允许**：满足所列条件时可以使用。
 
+本文将外部规范作为参考依据，将仓库自身的工程约束单独列出。外部规范中的建议只有在本文明确写成“必须”或“禁止”时，才构成本仓库的强制要求。
+
+主要参考来源：
+
+- [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
+- [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)
+- [Doxygen Special Commands](https://www.doxygen.nl/manual/commands.html)
+
 ## 1. 语言和文件
 
 - 必须使用项目指定的 C++ 标准，并开启项目规定的编译器警告。
@@ -17,6 +25,8 @@
 
 ## 2. 头文件和源文件
 
+本节结合 [Google C++ Style Guide 的 Header Files](https://google.github.io/styleguide/cppguide.html#header_files) 和本仓库的模块组织要求制定。
+
 - 头文件必须只放公共声明、模板定义、必须在编译期求值的定义，以及明确要求内联的短函数。
 - 普通非模板函数、复杂成员函数和业务逻辑必须放在 `.cpp` 文件中。
 - 禁止在头文件中放置普通函数的非内联实现。
@@ -25,6 +35,8 @@
 - 源文件必须先包含对应的头文件，再包含其他头文件。
 
 ## 3. 命名
+
+命名规则参考 [Google C++ Style Guide 的 Naming](https://google.github.io/styleguide/cppguide.html#naming)，具体名称形式以本节表格为准。
 
 命名必须表达实体职责。禁止使用 `data`、`info`、`thing`、`temp`、`obj` 等无法说明含义的名称。
 
@@ -46,6 +58,8 @@
 
 ## 4. 常量和宏
 
+常量优先使用类型安全的语言设施，符合 [C++ Core Guidelines 的 Constants](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Res-constants) 和 [Google C++ Style Guide 的 Preprocessor Macros](https://google.github.io/styleguide/cppguide.html#preprocessor_macros)。本仓库进一步禁止使用 `#define` 定义普通常量。
+
 - 常量必须优先使用 `constexpr`、`const` 或 `enum class`。
 - 禁止使用 `#define` 定义数值、字符串、布尔值或类型常量。
 - 禁止使用函数式宏实现可以由函数、模板或 `constexpr` 函数实现的逻辑。
@@ -60,6 +74,8 @@ inline constexpr std::size_t kMaxConnections = 128;
 ```
 
 ## 5. 所有权和资源管理
+
+本节遵循 [C++ Core Guidelines 的 Resource Management](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-resource) 和 [Google C++ Style Guide 的 Ownership and Smart Pointers](https://google.github.io/styleguide/cppguide.html#ownership_and_smart_pointers)。
 
 - 裸指针禁止表达所有权。
 - `T*` 只能表示可为空的借用对象，生命周期必须由接口或注释说明。
@@ -80,6 +96,8 @@ std::unique_ptr<Connection> create_connection();
 
 ## 6. 类、结构体和接口
 
+类的职责、特殊成员函数和资源管理参考 [C++ Core Guidelines 的 Classes](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-class)。
+
 - 类必须保持单一职责。
 - 资源必须由构造函数获取，由析构函数释放。
 - 通过基类指针删除对象时，基类析构函数必须为 `virtual`。
@@ -93,6 +111,8 @@ std::unique_ptr<Connection> create_connection();
 
 ## 7. 函数和类型
 
+函数职责、参数设计和返回值设计参考 [C++ Core Guidelines 的 Functions](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-functions)。
+
 - 一个函数必须只承担一个可说明的职责。
 - 函数参数超过四个时，必须评估是否改用参数结构体。
 - 输出结果优先使用返回值，禁止使用非必要的输出指针参数。
@@ -105,12 +125,16 @@ std::unique_ptr<Connection> create_connection();
 
 ## 8. 命名空间和 `using`
 
+全局 `using namespace` 的限制属于本仓库的工程规则。名称和别名的基本原则参考 [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)。
+
 - 禁止在头文件中使用全局 `using namespace`。
 - 禁止在源文件的全局作用域使用全局 `using namespace`。
 - 函数内部允许使用局部 `using` 声明，但只能引入实际使用的名称。
 - 新代码中的类型别名必须使用 `using`，禁止使用 `typedef`。
 
 ## 9. 错误处理和并发
+
+异常处理参考 [C++ Core Guidelines 的 Error Handling](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-errors)。线程和锁的规则参考 [C++ Core Guidelines 的 Concurrency](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-concurrency)。
 
 - 错误处理方式必须与接口约定一致。
 - 异常只能表达异常情况，禁止用异常表达正常分支。
@@ -124,6 +148,8 @@ std::unique_ptr<Connection> create_connection();
 
 ## 10. 注释和测试
 
+注释格式和命令遵循 [Doxygen Special Commands](https://www.doxygen.nl/manual/commands.html)，注释内容的组织方式参考 [Google C++ Style Guide 的 Commenting](https://google.github.io/styleguide/cppguide.html#commenting)。测试要求属于本仓库的工程规则。
+
 - 公共 API 必须使用 Doxygen 注释。
 - 注释必须说明行为、参数约束、错误处理和线程安全要求。
 - 禁止使用“适当时”“必要时”“尽量”“可能”等无法验证的模糊词描述强制要求。
@@ -133,3 +159,10 @@ std::unique_ptr<Connection> create_connection();
 - 修复缺陷必须增加能够复现原问题的测试。
 - 提交前必须运行项目已有的构建和测试命令。
 - 文档或配置修改至少运行 `git diff --check`。
+
+## 11. 工具和自动检查
+
+- 代码格式化统一使用项目配置的 `clang-format`。格式规则应提交为 `.clang-format`，并在 CI 中检查格式差异。
+- 静态检查统一使用项目配置的 `clang-tidy`。检查规则应提交为 `.clang-tidy`，并在 CI 中执行。
+- `clang-format` 的规则说明见 [ClangFormatStyleOptions](https://clang.llvm.org/docs/ClangFormatStyleOptions.html)。
+- `clang-tidy` 的检查说明见 [Clang-Tidy Checks](https://clang.llvm.org/extra/clang-tidy/checks/list.html)。
