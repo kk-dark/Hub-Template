@@ -78,3 +78,5 @@ PR 默认由至少一名具备权限的维护者独立完成人工审核后合�
 C++ 编码规范见 [C++ 编码规范](docs/cpp-coding-guidelines.md)。
 
 C++ 注释规范见 [C++ 注释规范](docs/cpp-doxygen-introduction.md)。
+
+Qt 专属编码规范见 [Qt 编码规范](docs/qt-coding-guidelines.md)。
