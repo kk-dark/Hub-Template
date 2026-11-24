@@ -98,13 +98,13 @@ FluentUIStyle 上游已测试 Qt 5.15.2。使用 CMake 3.16 构建时，关闭�
 
 项目应统一记录以下工具版本：
 
-| 工具 | 用途 | 版本 |
-| --- | --- | --- |
-| CMake | 配置和生成构建文件 | `>= 3.16` |
-| 编译器 | 编译 C++17 代码 | `<项目指定版本>` |
-| clang-format | 代码格式化 | `<项目指定版本>` |
-| clang-tidy | 静态检查 | `<项目指定版本>` |
-| Doxygen | API 文档生成 | `<项目指定版本>` |
+| 工具 | 用途 | 版本 | 官方链接 |
+| --- | --- | --- | --- |
+| CMake | 配置和生成构建文件 | `>= 3.16` | [CMake 文档](https://cmake.org/documentation/) |
+| 编译器 | 编译 C++17 代码 | `<项目指定版本>` | [MSVC](https://learn.microsoft.com/zh-cn/cpp/) · [GCC](https://gcc.gnu.org/) · [Clang](https://clang.llvm.org/) |
+| clang-format | 代码格式化 | `<项目指定版本>` | [ClangFormat 手册](https://clang.llvm.org/docs/ClangFormat.html) |
+| clang-tidy | 静态检查 | `<项目指定版本>` | [Clang-Tidy 手册](https://clang.llvm.org/extra/clang-tidy/) |
+| Doxygen | API 文档生成 | `<项目指定版本>` | [Doxygen 手册](https://www.doxygen.nl/manual/) |
 
 工具配置必须提交到仓库，并在 CI 中使用相同规则。具体代码、注释和 API 约束分别见 [C++ 编码规范](cpp-coding-guidelines.md)、[C++ 注释规范](cpp-doxygen-introduction.md) 和 [C++ API 设计规范](cpp-api-design-guidelines.md)。
 
