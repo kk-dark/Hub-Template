@@ -1,6 +1,6 @@
-# API 设计规范
+# C++ API 设计规范
 
-本文适用于所有对外暴露在公共头文件中的 C++ `public` 接口，包括类、结构体、函数、枚举、类型别名、常量和宏。实现文件中的内部接口不受本文约束，但仍必须遵守 [C++ 编码规范](cpp-coding-guidelines.md)。
+本文适用于所有对外暴露在公共头文件中的 C++ `public` 接口，包括类、结构体、函数、枚举、类型别名、常量和宏。实现文件中的内部接口不受本文约束，但仍必须遵守 [C++ 编码规范](cpp-coding-guidelines.md)。Qt 公共 API 的额外规则见 [Qt API 设计规范](qt-api-design-guidelines.md)。
 
 本文的目标是保持接口清晰、所有权明确，并降低发布后的 ABI 兼容成本。公共 API 的注释遵循 [C++ 注释规范](cpp-doxygen-introduction.md)。
 
