@@ -1,6 +1,6 @@
 # Qt 编码规范
 
-本文适用于 Qt 5.15.2 和 Qt 6 的 C++ 源码、头文件、测试和示例代码。本文只规定 Qt 专属写法。通用 C++ 规则见 [C++ 编码规范](cpp-coding-guidelines.md)，Doxygen 注释见 [C++ 注释规范](cpp-doxygen-introduction.md)。
+本文适用于 Qt 5.15.2 和 Qt 6 的 C++ 源码、头文件、测试和示例代码。本文只规定 Qt 专属写法。通用 C++ 规则见 [C++ 编码规范](cpp-coding-guidelines.md)，Doxygen 注释见 [C++ 注释规范](cpp-doxygen-introduction.md)，Qt 特有的注释规则见 [Qt 注释规范](qt-doxygen-guidelines.md)。
 
 本文将 Qt 5.15.2 简称为 Qt 5.15，不将所有 Qt 5 版本统称为 Qt 5。未标注版本的规则同时适用于 Qt 5.15.2 和 Qt 6。标注版本的规则只适用于对应版本。项目必须在构建配置中明确 Qt 主版本，不能把 Qt 5 和 Qt 6 的 API 混用在同一个目标中。
 
@@ -203,7 +203,7 @@ Qt 代码使用与普通 C++ 相同的 Doxygen 规范：
 - `Q_PROPERTY` 必须在注释中说明属性语义和 `NOTIFY` 信号。
 - UI 交互行为必须说明用户可见结果。
 
-详细写法见 [精简版 C++ 注释规范](cpp-doxygen-introduction.md) 和 [Doxygen 详细参考](cpp-doxygen-reference.md)。
+通用写法见 [精简版 C++ 注释规范](cpp-doxygen-introduction.md) 和 [Doxygen 详细参考](cpp-doxygen-reference.md)，Qt 特有写法见 [Qt 注释规范](qt-doxygen-guidelines.md)。
 
 ## 10. 构建和检查
 

@@ -79,4 +79,6 @@ C++ 编码规范见 [C++ 编码规范](docs/cpp-coding-guidelines.md)。
 
 C++ 注释规范见 [C++ 注释规范](docs/cpp-doxygen-introduction.md)。
 
-Qt 专属编码规范见 [Qt 编码规范](docs/qt-coding-guidelines.md)。
+Qt 编码规范见 [Qt 编码规范](docs/qt-coding-guidelines.md)。
+
+Qt 注释规范见 [Qt 注释规范](docs/qt-doxygen-guidelines.md)。

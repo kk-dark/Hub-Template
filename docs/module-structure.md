@@ -22,6 +22,7 @@
 │   ├── cpp-doxygen-introduction.md
 │   ├── cpp-doxygen-reference.md
 │   ├── module-structure.md
+│   ├── qt-doxygen-guidelines.md
 │   └── qt-coding-guidelines.md
 ├── CONTRIBUTING.md
 ├── README.md
@@ -58,6 +59,7 @@ Issue 模板只负责收集问题信息，具体提交和 PR 规则见 [贡献�
 | `cpp-coding-guidelines.md` | 通用 C++ 编码规范。 |
 | `cpp-doxygen-introduction.md` | 面向日常使用的精简 Doxygen 注释规范。 |
 | `cpp-doxygen-reference.md` | Doxygen 关键字和高级用法的详细参考。 |
+| `qt-doxygen-guidelines.md` | Qt 信号、槽、属性、模型和界面相关的注释规范。 |
 | `qt-coding-guidelines.md` | Qt 5.15.2 和 Qt 6 的专属编码规范。 |
 | `module-structure.md` | 仓库目录结构和文件职责说明。 |
 
@@ -71,7 +73,10 @@ CONTRIBUTING.md
 │   ├── docs/cpp-doxygen-introduction.md
 │   └── docs/cpp-doxygen-reference.md
 └── docs/qt-coding-guidelines.md
-    └── 复用 C++ 编码和 Doxygen 注释规范
+    ├── 复用 C++ 编码规范
+    ├── 复用 C++ Doxygen 注释规范
+    └── docs/qt-doxygen-guidelines.md
+        └── 补充 Qt 特有的注释语义
 ```
 
 ## 新增文件的放置规则
