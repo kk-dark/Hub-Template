@@ -60,6 +60,8 @@ ViewModel / Controller 层是 UI 和业务层之间的适配层。
 - 将业务结果转换为 UI 可展示的状态。
 - 管理页面状态、加载状态、错误状态和命令可用性。
 - 负责连接信号、槽和异步结果。
+- 只做 UI 与业务接口之间的适配、转换和状态管理，不编写业务规则。
+- 业务判断必须委托给 Service / Domain，禁止在 ViewModel、Controller 或槽函数中复制业务规则。
 - 可以依赖 Service / Domain 接口，禁止依赖 Infrastructure 具体类。
 - 不实现数据库、网络和文件访问细节。
 
@@ -126,6 +128,21 @@ Infrastructure 层实现外部依赖和平台适配。
 9. 一个对象只能由一套明确的所有权机制管理。QObject 父子关系和智能指针禁止同时拥有同一个对象。
 10. 跨线程 QObject 必须通过信号槽、事件或明确的线程安全接口通信。
 
+依赖方向禁止表：
+
+| 依赖方 | 禁止依赖 | 原因 |
+| --- | --- | --- |
+| UI | Infrastructure 具体实现 | UI 不得绕过 ViewModel / Controller 和 Service 直接访问外部资源。 |
+| UI | Domain 内部实现 | UI 只能依赖公开的 ViewModel / Controller 或稳定的业务接口。 |
+| ViewModel / Controller | Infrastructure 具体实现 | 适配层只依赖 Service / Domain 接口，具体实现由组合根注入。 |
+| Domain | UI、ViewModel / Controller | 业务规则不能感知界面和交互流程。 |
+| Domain | `QtWidgets`、`QtQuick`、QWidget 和 QML 类型 | Core 必须能够脱离 GUI 单独编译和测试。 |
+| Domain | 数据库、网络、文件和设备实现 | 外部依赖必须通过端口接口接入。 |
+| Infrastructure | UI 和 ViewModel / Controller | 基础设施层不能反向调用上层界面。 |
+| 任意模块 | 同层循环依赖或跨层循环依赖 | 循环依赖会破坏单向依赖和独立测试。 |
+
+组合根可以依赖所有运行时模块，用于创建和组装对象。测试代码可以依赖被测模块和测试替身，但生产模块不得依赖测试代码。
+
 ## 5. 依赖注入和对象组装
 
 具体实现必须在组合根创建并注入：
@@ -152,6 +169,8 @@ int main(int argc, char* argv[])
 - 测试时必须能够注入 fake、mock 或内存实现，不启动真实数据库和网络服务即可测试 Domain。
 
 ## 6. 推荐目录结构
+
+目录结构只用于表达模块边界，不要求每个项目都创建全部子目录。运行时代码和测试代码分开，`app/` 是组合根，不能视为独立业务层。
 
 ```text
 src/
@@ -180,7 +199,30 @@ src/
     └── integration/
 ```
 
-目录名称可以按项目模块调整，但层职责和依赖方向必须保持一致。平台相关代码集中在 `infrastructure/platform/`，禁止把平台宏散落在 Domain 和 UI 业务代码中。
+目录与架构层的对应关系如下：
+
+| 目录 | 对应架构 | 职责 |
+| --- | --- | --- |
+| `src/app/` | 组合根 | 创建具体实现、注入依赖、启动应用和事件循环。 |
+| `src/ui/` | UI 层 | 窗口、控件、QML、资源和用户交互。 |
+| `src/presentation/` | ViewModel / Controller 层 | 页面状态、数据转换和命令分发。 |
+| `src/domain/` | Service / Domain 层 | 业务实体、业务服务和下层抽象接口。 |
+| `src/infrastructure/` | Infrastructure 层 | 数据库、网络、文件、设备和平台实现。 |
+| `tests/` | 测试支撑目录 | 单元、组件和集成测试，不属于运行时架构层。 |
+
+- `entities/` 保存业务实体，`services/` 保存业务规则，`ports/` 保存 Domain 依赖的抽象接口。
+- `widgets/`、`qml/` 和 `resources/` 都属于 UI 层。`resources/` 只保存界面资源，不保存业务数据访问代码。
+- `composition/` 只负责组装对象，不实现业务规则。
+- `infrastructure/platform/` 集中平台相关代码，禁止把平台宏散落在 Domain 和 UI 业务代码中。
+
+小型项目不需要为了目录数量强行拆分：
+
+- `presentation/` 中只有少量页面状态代码时，可以并入 `ui/`，仍需保持 UI 不直接执行业务逻辑。
+- `domain/ports/` 只有少量接口时，可以与对应的 Domain 服务放在同一目录。
+- `database/`、`network/`、`filesystem/` 或 `platform/` 没有对应实现时，不创建空目录。
+- `tests/` 保持在 `src/` 外部，避免把测试误认为运行时模块。
+
+项目规模扩大或模块边界变得清晰后，再拆分对应子目录。目录名称可以按项目模块调整，但层职责和依赖方向必须保持一致。
 
 ## 7. 构建依赖
 
