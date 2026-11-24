@@ -131,6 +131,27 @@ std::unique_ptr<Connection> create_connection();
 - 禁止在源文件的全局作用域使用全局 `using namespace`。
 - 函数内部允许使用局部 `using` 声明，但只能引入实际使用的名称。
 - 新代码中的类型别名必须使用 `using`，禁止使用 `typedef`。
+- 源文件中仅供本文件使用的全局函数和变量必须放入未命名命名空间，禁止使用文件作用域 `static` 定义它们。
+
+```cpp
+namespace {
+
+constexpr int kDefaultPort = 8080;
+
+bool is_valid_port(int port)
+{
+    return port > 0 && port <= 65535;
+}
+
+}  // namespace
+```
+
+上例中的 `kDefaultPort` 和 `is_valid_port()` 只在当前源文件内可见。不得写成以下形式：
+
+```cpp
+static constexpr int kDefaultPort = 8080;
+static bool is_valid_port(int port);
+```
 
 ## 9. 错误处理和并发
 
