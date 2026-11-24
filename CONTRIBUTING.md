@@ -83,6 +83,8 @@ Qt 公共 API 设计见 [Qt API 设计规范](docs/qt-api-design-guidelines.md)�
 
 C++ 注释规范见 [C++ 注释规范](docs/cpp-doxygen-introduction.md)。
 
+项目分层、依赖方向和模块边界见 [Qt 项目架构规范](docs/architecture.md)。
+
 Qt 编码规范见 [Qt 编码规范](docs/qt-coding-guidelines.md)。
 
 Qt 注释规范见 [Qt 注释规范](docs/qt-doxygen-guidelines.md)。

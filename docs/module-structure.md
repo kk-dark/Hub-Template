@@ -17,6 +17,7 @@
 │   ├── workflows/
 │   └── pull_request_template.md
 ├── docs/
+│   ├── architecture.md
 │   ├── changelog-template.md
 │   ├── commit-and-pr-examples.md
 │   ├── cpp-api-design-guidelines.md
@@ -58,8 +59,9 @@ Issue 模板只负责收集问题信息，具体提交和 PR 规则见 [贡献�
 
 | 文件 | 用途 |
 | --- | --- |
-| `commit-and-pr-examples.md` | Commit 类型、Commit 标题和 PR 正文的完整案例。 |
+| `architecture.md` | Qt 项目的分层、依赖方向、模块边界和测试约束。 |
 | `changelog-template.md` | 版本发布说明和附件列表的模板。 |
+| `commit-and-pr-examples.md` | Commit 类型、Commit 标题和 PR 正文的完整案例。 |
 | `cpp-api-design-guidelines.md` | 通用 C++ 公共头文件 API 的设计、ABI 和兼容性规范。 |
 | `cpp-coding-guidelines.md` | 通用 C++ 编码规范。 |
 | `cpp-doxygen-introduction.md` | 面向日常使用的精简 Doxygen 注释规范。 |
