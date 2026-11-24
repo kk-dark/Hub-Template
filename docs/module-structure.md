@@ -17,13 +17,14 @@
 │   ├── workflows/
 │   └── pull_request_template.md
 ├── docs/
-│   ├── api-design-guidelines.md
 │   ├── changelog-template.md
 │   ├── commit-and-pr-examples.md
+│   ├── cpp-api-design-guidelines.md
 │   ├── cpp-coding-guidelines.md
 │   ├── cpp-doxygen-introduction.md
 │   ├── cpp-doxygen-reference.md
 │   ├── module-structure.md
+│   ├── qt-api-design-guidelines.md
 │   ├── qt-doxygen-guidelines.md
 │   └── qt-coding-guidelines.md
 ├── CONTRIBUTING.md
@@ -59,11 +60,12 @@ Issue 模板只负责收集问题信息，具体提交和 PR 规则见 [贡献�
 | --- | --- |
 | `commit-and-pr-examples.md` | Commit 类型、Commit 标题和 PR 正文的完整案例。 |
 | `changelog-template.md` | 版本发布说明和附件列表的模板。 |
-| `api-design-guidelines.md` | 公共头文件 API 的设计、ABI 和兼容性规范。 |
+| `cpp-api-design-guidelines.md` | 通用 C++ 公共头文件 API 的设计、ABI 和兼容性规范。 |
 | `cpp-coding-guidelines.md` | 通用 C++ 编码规范。 |
 | `cpp-doxygen-introduction.md` | 面向日常使用的精简 Doxygen 注释规范。 |
 | `cpp-doxygen-reference.md` | Doxygen 关键字和高级用法的详细参考。 |
 | `qt-doxygen-guidelines.md` | Qt 信号、槽、属性、模型和界面相关的注释规范。 |
+| `qt-api-design-guidelines.md` | Qt 公共 API 对 QObject、元对象、线程和 Qt 类型的补充规范。 |
 | `qt-coding-guidelines.md` | Qt 5.15.2 和 Qt 6 的专属编码规范。 |
 | `module-structure.md` | 仓库目录结构和文件职责说明。 |
 
@@ -73,14 +75,15 @@ Issue 模板只负责收集问题信息，具体提交和 PR 规则见 [贡献�
 CONTRIBUTING.md
 ├── 提交和 PR 规则
 ├── VERSIONING.md
+├── docs/cpp-api-design-guidelines.md
+│   └── 通用公共 C++ API 规则
 ├── docs/cpp-coding-guidelines.md
 │   ├── docs/cpp-doxygen-introduction.md
 │   └── docs/cpp-doxygen-reference.md
-└── docs/qt-coding-guidelines.md
-    ├── 复用 C++ 编码规范
-    ├── 复用 C++ Doxygen 注释规范
-    └── docs/qt-doxygen-guidelines.md
-        └── 补充 Qt 特有的注释语义
+└── docs/qt-api-design-guidelines.md
+    ├── 复用 C++ API 设计规范
+    ├── 复用 Qt 编码规范
+    └── 复用 Qt 注释规范
 ```
 
 ## 新增文件的放置规则

@@ -14,7 +14,8 @@
 ## 开发规范
 
 - [C++ 编码规范](docs/cpp-coding-guidelines.md)
-- [API 设计规范](docs/api-design-guidelines.md)
+- [C++ API 设计规范](docs/cpp-api-design-guidelines.md)
+- [Qt API 设计规范](docs/qt-api-design-guidelines.md)
 - [C++ 注释规范](docs/cpp-doxygen-introduction.md)
 - [Doxygen 详细参考](docs/cpp-doxygen-reference.md)
 - [Qt 编码规范](docs/qt-coding-guidelines.md)

@@ -77,7 +77,9 @@ PR 默认由至少一名具备权限的维护者独立完成人工审核后合�
 
 C++ 编码规范见 [C++ 编码规范](docs/cpp-coding-guidelines.md)。
 
-公共头文件 API 设计见 [API 设计规范](docs/api-design-guidelines.md)。
+公共 C++ 头文件 API 设计见 [C++ API 设计规范](docs/cpp-api-design-guidelines.md)。
+
+Qt 公共 API 设计见 [Qt API 设计规范](docs/qt-api-design-guidelines.md)。
 
 C++ 注释规范见 [C++ 注释规范](docs/cpp-doxygen-introduction.md)。
 
