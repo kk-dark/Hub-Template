@@ -77,8 +77,14 @@ target_link_libraries(example
 
 | 库 | 用途 | 版本 | 来源 | 许可证 | 引入原因 |
 | --- | --- | --- | --- | --- | --- |
-| spdlog | 日志 | <版本> | <包管理器或仓库地址> | <许可证> | 统一日志记录和输出。 |
-| <库名> | <用途> | <版本> | <来源> | <许可证> | <引入原因> |
+| spdlog | 应用日志 | 接入时锁定 | [gabime/spdlog](https://github.com/gabime/spdlog) | [MIT](https://github.com/gabime/spdlog/blob/v1.x/LICENSE) | 统一各模块的日志级别、输出格式和文件轮转策略。 |
+| nlohmann/json | 纯 C++ 核心层的 JSON 解析与序列化 | 接入时锁定 | [上游仓库](https://github.com/nlohmann/json) | MIT | 核心层可独立于 Qt 处理 JSON。 |
+| Qt Advanced Docking System（ADS） | Qt Widgets 工作区的标签页 | 接入时锁定 | [上游仓库](https://github.com/githubuser0xFFFF/Qt-Advanced-Docking-System) | LGPL-2.1 | 管理文档和工具面板的标签分组、拖拽与停靠。 |
+| FluentUIStyle | Windows 现代风格界面 | 接入时锁定 | [上游仓库](https://github.com/XHY-ChuJian/FluentUIStyle) | MIT | Qt Widgets 项目需要 Windows 11 Fluent 外观时使用该样式插件。 |
+
+[Qt Advanced Stylesheets](https://github.com/githubuser0xFFFF/Qt-Advanced-Stylesheets) 用于 Qt 样式表和主题管理。标签页停靠功能由上表中的 ADS 提供。
+
+FluentUIStyle 上游已测试 Qt 5.15.2。使用 CMake 3.16 构建时，关闭要求 CMake 3.19 及以上版本的可选无边框组件（`-DBUILD_FRAMELESS=OFF`）。详见[上游注意事项](https://github.com/XHY-ChuJian/FluentUIStyle#注意事项)。
 
 依赖选择必须满足：
 
