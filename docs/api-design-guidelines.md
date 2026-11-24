@@ -4,7 +4,11 @@
 
 本文的目标是保持接口清晰、所有权明确，并降低发布后的 ABI 兼容成本。公共 API 的注释遵循 [C++ 注释规范](cpp-doxygen-introduction.md)。
 
+本文参考 [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)、[Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)、[cppreference 的 PImpl 说明](https://en.cppreference.com/w/cpp/language/pimpl) 和 [Qt 的 D-Pointer 说明](https://wiki.qt.io/D-Pointer)。外部资料作为设计依据，本仓库列出的“必须”和“禁止”属于本项目的强制规则。
+
 ## 公共头文件边界
+
+本节结合 [Google C++ Style Guide 的 Header Files](https://google.github.io/styleguide/cppguide.html#header_files) 制定。
 
 - 公共头文件只能暴露调用方必须使用的类型和函数。
 - 禁止暴露私有成员、内部结构体、内部容器、锁、线程对象和实现细节。
@@ -16,7 +20,9 @@
 
 ## 类和 ABI
 
-对外暴露的实体类必须统一使用 PIMPL。公共类的头文件只保留一个指向实现类的 `std::unique_ptr<Impl>`。
+PImpl 通过不透明指针把实现细节移出对象布局，可用于减少头文件依赖并保持 ABI 稳定，具体机制见 [cppreference 的 PImpl 说明](https://en.cppreference.com/w/cpp/language/pimpl)。对外暴露的实体类必须统一使用 PIMPL。公共类的头文件只保留一个指向实现类的 `std::unique_ptr<Impl>`。
+
+Qt 项目中的库类可以参考 Qt 的 [D-Pointer 模式](https://wiki.qt.io/D-Pointer)，但本仓库统一使用标准 C++ 的 `std::unique_ptr<Impl>` 表达实现所有权。
 
 ```cpp
 class Connection
@@ -88,6 +94,8 @@ public:
 `find()` 返回 `ErrorCode::Ok` 时，`value` 可能为空，表示没有匹配项。发生 I/O 或参数错误时，返回对应的错误码。
 
 ## 所有权和生命周期
+
+所有权规则参考 [C++ Core Guidelines 的 Resource Management](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-resource) 和 [Google C++ Style Guide 的 Ownership and Smart Pointers](https://google.github.io/styleguide/cppguide.html#ownership_and_smart_pointers)。
 
 - 裸指针只能表示借用关系，公共 API 必须在注释中说明是否允许为空以及生命周期由谁负责。
 - 公共 API 不得返回指向内部对象、内部容器元素或临时对象的悬空指针和引用。
