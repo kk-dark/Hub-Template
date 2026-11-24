@@ -1,6 +1,8 @@
 # Qt 编码规范
 
-本文适用于使用 Qt 6 的 C++ 源码、头文件、测试和示例代码。本文只规定 Qt 专属写法。通用 C++ 规则见 [C++ 编码规范](cpp-coding-guidelines.md)，Doxygen 注释见 [C++ 注释规范](cpp-doxygen-introduction.md)。
+本文适用于 Qt 5.15.2 和 Qt 6 的 C++ 源码、头文件、测试和示例代码。本文只规定 Qt 专属写法。通用 C++ 规则见 [C++ 编码规范](cpp-coding-guidelines.md)，Doxygen 注释见 [C++ 注释规范](cpp-doxygen-introduction.md)。
+
+本文将 Qt 5.15.2 简称为 Qt 5.15，不将所有 Qt 5 版本统称为 Qt 5。未标注版本的规则同时适用于 Qt 5.15.2 和 Qt 6。标注版本的规则只适用于对应版本。项目必须在构建配置中明确 Qt 主版本，不能把 Qt 5 和 Qt 6 的 API 混用在同一个目标中。
 
 本文使用以下明确措辞：
 
@@ -11,10 +13,28 @@
 主要参考：
 
 - [Qt Coding Style](https://wiki.qt.io/Qt_Coding_Style)
+- [Qt 5.15 Documentation](https://doc.qt.io/qt-5.15/)
+- [Qt 6 Documentation](https://doc.qt.io/qt-6/)
+- [Qt 5.15 QObject Class Reference](https://doc.qt.io/qt-5.15/qobject.html)
+- [Qt 5.15 Signals and Slots](https://doc.qt.io/qt-5.15/signalsandslots.html)
+- [Qt 5.15 Threads and QObjects](https://doc.qt.io/qt-5.15/threads-qobject.html)
 - [QObject Class Reference](https://doc.qt.io/qt-6/qobject.html)
 - [Signals and Slots](https://doc.qt.io/qt-6/signalsandslots.html)
 - [Threads and QObjects](https://doc.qt.io/qt-6/threads-qobject.html)
 - [Qt Meta-Object System](https://doc.qt.io/qt-6/metaobjects.html)
+
+## Qt 5.15.2 和 Qt 6 的差异
+
+| 项目 | Qt 5.15.2 | Qt 6 |
+| --- | --- | --- |
+| 常用拥有型字符串 | `QString` | `QString` |
+| UTF-16 非拥有视图 | `QStringView` | `QStringView` |
+| Latin-1 字符串 | `QLatin1String` | `QLatin1StringView` |
+| UTF-8 非拥有视图 | 不使用 `QUtf8StringView` | 仅在目标 Qt 6 版本提供该类型时使用 |
+| 构建目标 | `Qt5::Core`、`Qt5::Gui`、`Qt5::Widgets` | `Qt6::Core`、`Qt6::Gui`、`Qt6::Widgets` |
+| qmake 模块声明 | `QT += core gui widgets` | `QT += core gui widgets` |
+
+Qt 5.15 支持版本无关的 `Qt::Core` 等 CMake 目标，但项目必须先按 Qt 5.15 的方式查找 Qt 包。需要兼容 Qt 5.15 和 Qt 6 时，构建脚本必须明确选择实际的 Qt 主版本。详见 [Qt 5 和 Qt 6 的 CMake 兼容性](https://doc.qt.io/qt-6/cmake-qt5-and-qt6-compatibility.html)。
 
 ## 1. 命名
 
@@ -137,7 +157,9 @@ connect(sender, SIGNAL(fileChanged(QString)),
 
 ## 6. Qt 类型和容器
 
-- 文本接口必须根据语义选择 `QString`、`QStringView`、`QLatin1StringView` 或 `QUtf8StringView`。
+- 文本接口必须根据语义选择 `QString`、`QStringView` 或项目目标版本支持的非拥有字符串类型。
+- Qt 5.15 代码使用 `QLatin1String` 表示 Latin-1 非拥有字符串。Qt 6 代码可以使用 `QLatin1StringView`。
+- `QUtf8StringView` 只允许在提供该类型的 Qt 6 目标中使用。Qt 5.15 代码使用 `QString`、`QByteArray` 或项目已有的 UTF-8 接口表达 UTF-8 数据。
 - 二进制数据使用 `QByteArray`，禁止将二进制数据当作以 `'\0'` 结尾的 C 字符串处理。
 - Qt API 边界优先使用 Qt 类型，标准库类型只在接口明确要求或与非 Qt 模块交互时使用。
 - 需要隐式共享和 Qt 元对象集成时优先使用 Qt 容器。
@@ -185,11 +207,11 @@ Qt 代码使用与普通 C++ 相同的 Doxygen 规范：
 
 ## 10. 构建和检查
 
-- Qt 模块必须通过 CMake `find_package(Qt6 ...)` 或项目统一的构建方式声明。
-- Qt 类型使用的模块必须在构建目标中显式链接，例如 `Qt6::Core`、`Qt6::Gui` 或 `Qt6::Widgets`。
-- 使用 `Q_OBJECT` 的目标必须启用 Qt 的自动 MOC、UIC 和 RCC 处理。
+- Qt 5.15 模块必须通过 CMake `find_package(Qt5 5.15 REQUIRED COMPONENTS ...)` 或项目统一的 qmake 配置声明。Qt 6 模块必须通过 `find_package(Qt6 REQUIRED COMPONENTS ...)` 声明。
+- Qt 类型使用的模块必须在构建目标中显式链接。Qt 5.15 使用 `Qt5::Core`、`Qt5::Gui` 或 `Qt5::Widgets`，Qt 6 使用对应的 `Qt6::` 目标。
+- 使用 `Q_OBJECT` 的 CMake 目标必须启用 Qt 的自动 MOC、UIC 和 RCC 处理。使用 qmake 的项目必须将相关源文件纳入对应的 `SOURCES`、`HEADERS`、`FORMS` 或 `RESOURCES` 配置。
 - 禁止提交构建目录、`moc_*.cpp`、`ui_*.h`、`qrc_*.cpp` 等生成文件，除非项目明确要求提交。
 - 提交前必须运行项目已有的构建和测试命令。
 - 文档或配置修改至少运行 `git diff --check`。
 
-Qt API 细节以 [Qt 6 Documentation](https://doc.qt.io/qt-6/) 为准。项目自己的规则以本文为准。
+Qt API 细节以项目实际使用版本的 [Qt 5.15 Documentation](https://doc.qt.io/qt-5.15/) 或 [Qt 6 Documentation](https://doc.qt.io/qt-6/) 为准。项目自己的规则以本文为准。
