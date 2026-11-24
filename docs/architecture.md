@@ -6,7 +6,7 @@
 
 当前仓库主要保存工程规范，尚未包含具体 Qt 业务实现。因此本文描述目标架构和新增代码必须遵守的约束，不代表当前仓库已经完成这些模块。
 
-本文参考 [C++/Qt 项目：把“能编译”做成“能长期维护”](https://cloud.tencent.com/developer/article/2773106) 的分层、依赖注入、对象所有权和测试建议。
+本文参考 [C++/Qt 项目](https://cloud.tencent.com/developer/article/2773106) 的分层、依赖注入、对象所有权和测试建议。
 
 ## 2. 架构总览
 
@@ -37,7 +37,7 @@ flowchart TB
     COMPOSE --> INFRA
 ```
 
-图中的编译依赖遵循依赖倒置。Domain 定义抽象接口，Infrastructure 提供实现，组合根负责组装具体对象。
+图中的编译依赖遵循依赖倒置。Domain 定义抽象接口，Infrastructure 提供实现，组合根负责组装具体对象。Qt 官方 Model/View 文档也将数据模型与界面呈现分离，并通过标准模型接口连接不同数据源和视图。
 
 ## 3. 各层边界
 
@@ -247,7 +247,22 @@ Domain 测试必须能够在没有 QApplication、QWidget 和真实外部服务�
 - 把耗时 I/O 放在 GUI 线程或 Core 同步接口中。
 - 测试必须启动完整窗口才能验证业务规则。
 
-## 11. 验证清单
+## 11. 参考依据
+
+以下资料用于解释 Qt 的基础机制。资料中的建议经过本仓库的工程约束收敛后，才形成本文的强制规则：
+
+- [Qt Design Principles](https://doc.qt.io/qt-6/design-principles.html)。
+- [Object Trees & Ownership](https://doc.qt.io/qt-6/objecttrees.html)。
+- [Threads and QObjects](https://doc.qt.io/qt-6/threads-qobject.html)。
+- [Signals and Slots](https://doc.qt.io/qt-6/signalsandslots.html)。
+- [Model/View Programming](https://doc.qt.io/qt-6/model-view-programming.html)。
+- [Qt Source and Binary Compatibility](https://doc.qt.io/qt-6/source-binary-compatibility.html)。
+- [Qt CMake Manual](https://doc.qt.io/qt-6/cmake-manual.html)。
+- [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)。
+
+Qt 5.15 项目应阅读对应的 [Qt 5.15 Documentation](https://doc.qt.io/qt-5.15/)，并使用与 Qt 6 对应章节相同的概念校验版本差异。
+
+## 12. 验证清单
 
 提交新的模块或公共接口前，必须检查：
 
