@@ -1,4 +1,4 @@
-# Stargazers Log
+# Hub-Template
 
 本仓库用于维护项目协作规范、版本控制规则和 C++/Qt 开发文档，为贡献者和自动化代理提供统一的工作约定。
 
@@ -14,10 +14,12 @@
 ## 开发规范
 
 - [C++ 编码规范](docs/cpp-coding-guidelines.md)
+- [API 设计规范](docs/api-design-guidelines.md)
 - [C++ 注释规范](docs/cpp-doxygen-introduction.md)
 - [Doxygen 详细参考](docs/cpp-doxygen-reference.md)
 - [Qt 编码规范](docs/qt-coding-guidelines.md)
 - [Qt 注释规范](docs/qt-doxygen-guidelines.md)
+- [发布说明模板](docs/changelog-template.md)
 
 Qt 编码规范适用于 Qt 5.15.2 和 Qt 6。Qt 代码同时遵循通用 C++ 编码规范和 Doxygen 注释规范。
 
