@@ -78,11 +78,14 @@ private:
 ## 2. QObject 和对象所有权
 
 - QObject 派生类必须在构造函数中接收 `QObject* parent = nullptr`，除非该类型明确不需要 QObject 父子关系。
+- 对外发布且需要保持 ABI 稳定的 QObject 或 QWidget 类必须使用 d-pointer 实现 PIMPL。d-pointer 默认使用 `std::unique_ptr<ClassPrivate>`，Qt 特有指针类型的例外场景见 [Qt API 设计规范](qt-api-design-guidelines.md)。
 - 创建 QObject 时，必须为具有明确生命周期关系的对象设置父对象。
 - 父对象销毁时，Qt 会销毁其子对象。禁止手动 `delete` 已经交给父对象管理的 QObject。
 - QObject 派生类禁止复制。应保留 Qt 默认的不可复制语义，禁止为 QObject 派生类实现复制构造函数和复制赋值运算符。
 - QObject 的所有权转移必须通过 `setParent()`、构造函数 parent 参数或明确的智能指针策略完成。
 - 跨线程移动 QObject 必须使用 `moveToThread()`，对象不能有父对象，且调用线程必须符合 Qt 的线程亲和性要求。
+
+Qt 智能指针只在需要 Qt 特有语义或与 Qt 指针接口互操作时使用。保存可能被外部销毁的 QObject 借用指针必须使用 `QPointer<T>`，`QSharedPointer` 和 `QWeakPointer` 必须成对用于 Qt 共享所有权体系。其他独立所有权和共享所有权使用 `std::unique_ptr`、`std::shared_ptr` 和 `std::weak_ptr`。详细规则见 [Qt API 设计规范](qt-api-design-guidelines.md)。
 
 ```cpp
 auto* worker = new Worker(this);
