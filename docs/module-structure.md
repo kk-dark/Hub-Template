@@ -27,7 +27,8 @@
 │   ├── module-structure.md
 │   ├── qt-api-design-guidelines.md
 │   ├── qt-doxygen-guidelines.md
-│   └── qt-coding-guidelines.md
+│   ├── qt-coding-guidelines.md
+│   └── technology-stack.md
 ├── CONTRIBUTING.md
 ├── README.md
 └── VERSIONING.md
@@ -69,6 +70,7 @@ Issue 模板只负责收集问题信息，具体提交和 PR 规则见 [贡献�
 | `qt-doxygen-guidelines.md` | Qt 信号、槽、属性、模型和界面相关的注释规范。 |
 | `qt-api-design-guidelines.md` | Qt 公共 API 对 QObject、元对象、线程和 Qt 类型的补充规范。 |
 | `qt-coding-guidelines.md` | Qt 5.15.2 和 Qt 6 的专属编码规范。 |
+| `technology-stack.md` | C++、Qt、CMake、第三方库和工具版本基线。 |
 | `module-structure.md` | 仓库目录结构和文件职责说明。 |
 
 规范之间的关系如下：

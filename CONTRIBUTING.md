@@ -85,6 +85,8 @@ C++ 注释规范见 [C++ 注释规范](docs/cpp-doxygen-introduction.md)。
 
 项目分层、依赖方向和模块边界见 [Qt 项目架构规范](docs/architecture.md)。
 
+语言、Qt、CMake 和第三方库基线见 [技术栈规范](docs/technology-stack.md)。
+
 Qt 编码规范见 [Qt 编码规范](docs/qt-coding-guidelines.md)。
 
 Qt 注释规范见 [Qt 注释规范](docs/qt-doxygen-guidelines.md)。
