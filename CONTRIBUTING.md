@@ -75,6 +75,8 @@ PR 默认由至少一名具备权限的维护者独立完成人工审核后合�
 
 ## 编码规范
 
+提交 C++ 或 Qt 代码前，运行 `python tools/check_format.py`。本地安装、自动修复和 CI 配置见 [clang-format 使用说明](docs/clang-format.md)。
+
 C++ 编码规范见 [C++ 编码规范](docs/cpp-coding-guidelines.md)。
 
 公共 C++ 头文件 API 设计见 [C++ API 设计规范](docs/cpp-api-design-guidelines.md)。

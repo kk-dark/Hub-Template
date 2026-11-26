@@ -8,6 +8,8 @@
 
 ```text
 .
+├── .clang-format
+├── .gitea/workflows/clang-format.yml
 ├── .github/
 │   ├── ISSUE_TEMPLATE/
 │   │   ├── Bug提交.md
@@ -15,10 +17,12 @@
 │   │   ├── 维护任务.md
 │   │   └── 文档更新.md
 │   ├── workflows/
+│   │   └── clang-format.yml
 │   └── pull_request_template.md
 ├── docs/
 │   ├── architecture.md
 │   ├── changelog-template.md
+│   ├── clang-format.md
 │   ├── commit-and-pr-examples.md
 │   ├── cpp-api-design-guidelines.md
 │   ├── cpp-coding-guidelines.md
@@ -30,6 +34,7 @@
 │   ├── qt-coding-guidelines.md
 │   └── technology-stack.md
 ├── CONTRIBUTING.md
+├── tools/check_format.py
 ├── README.md
 └── VERSIONING.md
 ```

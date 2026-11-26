@@ -1,0 +1,12 @@
+BasedOnStyle: LLVM
+Language: Cpp
+Standard: c++17
+IndentWidth: 4
+ContinuationIndentWidth: 4
+AccessModifierOffset: -4
+UseTab: Never
+BreakBeforeBraces: Allman
+AllowShortFunctionsOnASingleLine: Empty
+PointerAlignment: Left
+ColumnLimit: 100
+StatementMacros: [Q_UNUSED, QT_REQUIRE_VERSION, Q_OBJECT, Q_GADGET, Q_NAMESPACE, Q_PROPERTY, Q_ENUM, Q_FLAG, Q_DECLARE_FLAGS, Q_DECLARE_PRIVATE, Q_DECLARE_PUBLIC]

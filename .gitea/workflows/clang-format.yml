@@ -1,0 +1,17 @@
+name: C++ formatting
+on: [push, pull_request]
+jobs:
+  format:
+    name: clang-format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - run: |
+          format_env=$(mktemp -d)
+          trap 'rm -rf "$format_env"' EXIT
+          python3 -m venv "$format_env"
+          . "$format_env/bin/activate"
+          python -m pip install clang-format==23.1.5
+          python tools/check_format.py
