@@ -18,6 +18,9 @@ jobs:
           style: file
           tidy-checks: ''
           format-review: true
+          # only 'update' a single comment in a pull request thread.
+          # Pull requests from forks get a read-only token, so skip the comment there.
+          thread-comments: ${{ github.event.pull_request.head.repo.full_name == github.repository && 'update' }}
       - name: Fail on lint errors
         if: steps.linter.outputs.checks-failed > 0
         run: exit 1
