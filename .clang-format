@@ -1,12 +1,41 @@
+---
+# ============================================================
+# .clang-format —— C++17 + Qt 5.15.2 + CMake
+# 策略：以官方 LLVM 风格为基线，只覆盖下面这些项，其余全部继承。
+# ============================================================
+
+# 基线模板：LLVM 官方风格，未列出的字段一律继承它
 BasedOnStyle: LLVM
-Language: Cpp
+
+# 词法按 C++17 解析
 Standard: c++17
+
+# 缩进 4 空格（LLVM 默认 2）
 IndentWidth: 4
-ContinuationIndentWidth: 4
+
+# public:/private:/protected:/signals:/slots: 相对类体左移 4 格，与 class 顶格对齐（LLVM 默认 -2，配 IndentWidth 4 会错位）
 AccessModifierOffset: -4
-UseTab: Never
-BreakBeforeBraces: Allman
-AllowShortFunctionsOnASingleLine: Empty
-PointerAlignment: Left
-ColumnLimit: 100
-StatementMacros: [Q_UNUSED, QT_REQUIRE_VERSION, Q_OBJECT, Q_GADGET, Q_NAMESPACE, Q_PROPERTY, Q_ENUM, Q_FLAG, Q_DECLARE_FLAGS, Q_DECLARE_PRIVATE, Q_DECLARE_PUBLIC]
+
+# 单行宽度上限 120 列（LLVM 默认 80）
+ColumnLimit: 120
+
+# 左花括号紧跟语句不换行（LLVM 默认）
+BreakBeforeBraces: Attach
+
+# 星号贴变量名：int *p、QString *s（LLVM 默认值）
+PointerAlignment: Right
+
+# 关闭“从代码里猜指针风格”（LLVM 默认 true），否则上面那行会被猜出来的风格覆盖
+DerivePointerAlignment: false
+
+# 完全不动 #include 顺序（LLVM 默认 CaseSensitive）
+SortIncludes: Never
+
+# 只有类内联小函数允许写一行（LLVM 默认 All）；.cpp 里的自由函数一律展开
+AllowShortFunctionsOnASingleLine: Inline
+
+# if 体强制换行（LLVM 默认 WithoutElse 允许 if (a) return;）
+AllowShortIfStatementsOnASingleLine: Never
+
+# BinPackArguments: false                    # 函数调用参数一行一个，不再塞满整行；connect() 五个参数时 diff 最干净
+# BinPackParameters: false                   # 函数声明/定义的参数同样一行一个
