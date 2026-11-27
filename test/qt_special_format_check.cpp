@@ -22,16 +22,13 @@ static const char *const kGeneratedMetadata[] = {
 };
 // clang-format on
 
-class SpecialFormatProbe : public QObject
-{
+class SpecialFormatProbe : public QObject {
     Q_OBJECT
     QT_SPECIAL_PROPERTY(displayName, DisplayName)
+    Q_PROPERTY(QString name READ name WRITE set##value NOTIFY name##Changed)
 
 public:
-    explicit SpecialFormatProbe(QObject *parent = nullptr)
-        : QObject(parent)
-    {
-    }
+    explicit SpecialFormatProbe(QObject *parent = nullptr) : QObject(parent) {}
 
 signals:
     void displayNameChanged(const QString &name);
