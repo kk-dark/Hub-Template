@@ -11,8 +11,7 @@
 
 class TrackEntity;
 
-class TrackModel : public QObject
-{
+class TrackModel : public QObject {
     Q_OBJECT
     Q_MOC_INCLUDE("domain/track_entity.h")
 
@@ -24,15 +23,9 @@ class TrackModel : public QObject
     // clang-format on
 
 public:
-    explicit TrackModel(QObject *parent = nullptr)
-        : QObject(parent)
-    {
-    }
+    explicit TrackModel(QObject *parent = nullptr) : QObject(parent) {}
 
-    TrackEntity *entity() const
-    {
-        return entity_;
-    }
+    TrackEntity *entity() const { return entity_; }
 
 signals:
     void entityChanged(TrackEntity *entity);
@@ -43,8 +36,7 @@ private:
 
 class TrackEditorPrivate;
 
-class TrackEditor : public QWidget
-{
+class TrackEditor : public QWidget {
     Q_OBJECT
     // clang-format off
     Q_DECLARE_PRIVATE(TrackEditor)
@@ -57,26 +49,20 @@ private:
     QScopedPointer<TrackEditorPrivate> d_ptr;
 };
 
-class TrackEditorPrivate
-{
+class TrackEditorPrivate {
     Q_DECLARE_PUBLIC(TrackEditor)
 
 public:
     TrackEditor *q_ptr = nullptr;
 };
 
-TrackEditor::TrackEditor(QWidget *parent)
-    : QWidget(parent)
-    , d_ptr(new TrackEditorPrivate)
-{
+TrackEditor::TrackEditor(QWidget *parent) : QWidget(parent), d_ptr(new TrackEditorPrivate) {
     Q_D(TrackEditor);
     d->q_ptr = this;
 }
 
-namespace display_modes
-{
-enum class DisplayMode
-{
+namespace display_modes {
+enum class DisplayMode {
     Idle,        ///< 空闲
     Calculating, ///< 计算中
     Finished     ///< 导出完成
@@ -86,15 +72,11 @@ Q_NAMESPACE
 Q_ENUM_NS(DisplayMode)
 } // namespace display_modes
 
-struct TrackResult
-{
+struct TrackResult {
     QString value;
 };
 
-void invokeWithComplexArguments(QObject *object,
-                                const std::optional<TrackResult> &result,
-                                QString *text)
-{
+void invokeWithComplexArguments(QObject *object, const std::optional<TrackResult> &result, QString *text) {
     // 模板参数中包含逗号时，保持 Q_ARG 和 Q_RETURN_ARG 的结构。
     // clang-format off
     QMetaObject::invokeMethod(
@@ -108,8 +90,7 @@ void invokeWithComplexArguments(QObject *object,
     // clang-format on
 }
 
-void connectWithLongLambda(QObject *loader, QObject *receiver)
-{
+void connectWithLongLambda(QObject *loader, QObject *receiver) {
     // 多行捕获和连续 emit 的 lambda 保持明确的业务步骤。
     // clang-format off
     QObject::connect(loader, SIGNAL(loaded(QString)), receiver, [receiver](const QString &value) {
@@ -120,8 +101,7 @@ void connectWithLongLambda(QObject *loader, QObject *receiver)
     // clang-format on
 }
 
-const char *translatedText()
-{
+const char *translatedText() {
     // lupdate 需要看到完整的静态翻译源文本。
     // clang-format off
     static constexpr const char *kExportingText = QT_TR_NOOP("正在导出测线 %1");
@@ -131,16 +111,14 @@ const char *translatedText()
     return kExportingText;
 }
 
-class ITrackPlugin
-{
+class ITrackPlugin {
 public:
     virtual ~ITrackPlugin() = default;
 };
 
 Q_DECLARE_INTERFACE(ITrackPlugin, "com.example.ITrackPlugin")
 
-class TrackPlugin : public QObject, public ITrackPlugin
-{
+class TrackPlugin : public QObject, public ITrackPlugin {
     Q_OBJECT
     // clang-format off
     Q_PLUGIN_METADATA(IID "com.example.TrackPlugin")
@@ -148,8 +126,7 @@ class TrackPlugin : public QObject, public ITrackPlugin
     // clang-format on
 };
 
-class ConditionalMetaObject : public QObject
-{
+class ConditionalMetaObject : public QObject {
     Q_OBJECT
 #if QT_DEBUG
     // clang-format off
@@ -158,16 +135,13 @@ class ConditionalMetaObject : public QObject
 #endif
 };
 
-void useLegacyQtIteration(const QStringList &values)
-{
+void useLegacyQtIteration(const QStringList &values) {
     QString value;
-    Q_FOREACH (value, values)
-    {
+    Q_FOREACH (value, values) {
         Q_UNUSED(value);
     }
 
-    Q_FOREVER
-    {
+    Q_FOREVER {
         break;
     }
 }

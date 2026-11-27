@@ -12,26 +12,14 @@ QT_BEGIN_NAMESPACE
 class GeneratedQtExtension;
 QT_END_NAMESPACE
 
-namespace comprehensive
-{
+namespace comprehensive {
 Q_NAMESPACE
 
-enum class State
-{
-    Idle = 0x01,
-    Running = 0x02,
-    Finished = 0x04
-};
+enum class State { Idle = 0x01, Running = 0x02, Finished = 0x04 };
 
 Q_ENUM_NS(State)
 
-enum Feature
-{
-    NoFeature = 0x00,
-    Import = 0x01,
-    Export = 0x02,
-    Preview = 0x04
-};
+enum Feature { NoFeature = 0x00, Import = 0x01, Export = 0x02, Preview = 0x04 };
 
 Q_DECLARE_FLAGS(Features, Feature)
 Q_FLAG_NS(Features)
@@ -45,8 +33,7 @@ Q_DECLARE_METATYPE(QStringList)
 // clang-format on
 } // namespace comprehensive
 
-struct GadgetData
-{
+struct GadgetData {
     Q_GADGET
     // Q_GADGET 与 Q_OBJECT 一样，元属性区块必要时局部关闭格式化。
     // clang-format off
@@ -59,8 +46,7 @@ struct GadgetData
     int revision = 0;
 };
 
-class ComprehensiveObject : public QObject
-{
+class ComprehensiveObject : public QObject {
     Q_OBJECT
 #if defined(QT_QML_LIB)
     QML_ELEMENT
@@ -74,42 +60,26 @@ class ComprehensiveObject : public QObject
     // clang-format on
 
 public:
-    explicit ComprehensiveObject(QObject *parent = nullptr)
-        : QObject(parent)
-    {
-    }
+    explicit ComprehensiveObject(QObject *parent = nullptr) : QObject(parent) {}
 
-    QString title() const
-    {
-        return title_;
-    }
+    QString title() const { return title_; }
 
-    int revision() const
-    {
-        return revision_;
-    }
+    int revision() const { return revision_; }
 
     Q_REVISION(1)
-    Q_INVOKABLE void refresh()
-    {
-        emit refreshed();
-    }
+    Q_INVOKABLE void refresh() { emit refreshed(); }
 
 public slots:
-    void setTitle(const QString &title)
-    {
-        if (title_ == title)
-        {
+    void setTitle(const QString &title) {
+        if (title_ == title) {
             return;
         }
         title_ = title;
         emit titleChanged(title_);
     }
 
-    void setRevision(int revision)
-    {
-        if (revision_ == revision)
-        {
+    void setRevision(int revision) {
+        if (revision_ == revision) {
             return;
         }
         revision_ = revision;
@@ -126,8 +96,7 @@ private:
     int revision_ = 0;
 };
 
-void invokeWithMetaObject(ComprehensiveObject *object, QString *result)
-{
+void invokeWithMetaObject(ComprehensiveObject *object, QString *result) {
     // 复杂 Q_ARG / Q_RETURN_ARG 调用按项目约定保留参数顺序。
     // clang-format off
     QMetaObject::invokeMethod(object, "title", Qt::DirectConnection,
@@ -137,11 +106,9 @@ void invokeWithMetaObject(ComprehensiveObject *object, QString *result)
     // clang-format on
 }
 
-void connectWithBothSyntaxes(ComprehensiveObject *object, QObject *receiver)
-{
-    QObject::connect(object, &ComprehensiveObject::titleChanged, receiver, [](const QString &title) {
-        Q_UNUSED(title);
-    });
+void connectWithBothSyntaxes(ComprehensiveObject *object, QObject *receiver) {
+    QObject::connect(object, &ComprehensiveObject::titleChanged, receiver,
+                     [](const QString &title) { Q_UNUSED(title); });
 
     // 老式 SIGNAL/SLOT 语法保留为完整表达式。
     // clang-format off
@@ -149,36 +116,31 @@ void connectWithBothSyntaxes(ComprehensiveObject *object, QObject *receiver)
     // clang-format on
 }
 
-QString translatedMessage(const QString &name)
-{
+QString translatedMessage(const QString &name) {
     // 翻译宏中的字符串不能被拆分为多个源文本。
     // clang-format off
     return QString::fromUtf8(QT_TR_NOOP("导出对象 %1")).arg(name);
     // clang-format on
 }
 
-class ComprehensiveQtTest : public QObject
-{
+class ComprehensiveQtTest : public QObject {
     Q_OBJECT
 
 private slots:
-    void compareValues()
-    {
+    void compareValues() {
         const QString value = QStringLiteral("ready");
         QCOMPARE(value, QStringLiteral("ready"));
         QVERIFY(!value.isEmpty());
         QVERIFY2(value == QStringLiteral("ready"), "unexpected translated value");
     }
 
-    void fetchValues()
-    {
+    void fetchValues() {
         QFETCH(QString, value);
         QVERIFY(!value.isNull());
     }
 
 private:
-    void fetch_data()
-    {
+    void fetch_data() {
         QTest::addColumn<QString>("value");
         QTest::newRow("default") << QStringLiteral("ready");
     }
