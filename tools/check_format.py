@@ -8,7 +8,7 @@ import subprocess
 import sys
 
 
-VERSION = "23.1.5"
+VERSION = "23.1.6"
 EXTENSIONS = {".cpp", ".cc", ".cxx", ".h", ".hh", ".hpp", ".hxx", ".ipp", ".inl", ".tpp"}
 
 

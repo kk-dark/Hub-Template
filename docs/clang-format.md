@@ -24,12 +24,12 @@
 
 ## 本地安装与使用
 
-已安装 Git 和 Python 3.8+ 的开发者可以通过 pip 下载 clang-format 23.1.5。已有同版本可执行文件时，将其目录加入 `PATH`，或将环境变量 `CLANG_FORMAT` 设为可执行文件的完整路径。[下载文件](https://pypi.org/project/clang-format/23.1.5/#files) · [LLVM 工具手册](https://clang.llvm.org/docs/ClangFormat.html)
+已安装 Git 和 Python 3.8+ 的开发者可以通过 pip 下载 clang-format 23.1.6。已有同版本可执行文件时，将其目录加入 `PATH`，或将环境变量 `CLANG_FORMAT` 设为可执行文件的完整路径。[下载文件](https://pypi.org/project/clang-format/23.1.6/#files) · [LLVM 工具手册](https://clang.llvm.org/docs/ClangFormat.html)
 
 在项目根目录执行：
 
 ```shell
-python -m pip install clang-format==23.1.5
+python -m pip install clang-format==23.1.6
 clang-format --version
 python tools/check_format.py
 ```

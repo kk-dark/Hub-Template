@@ -102,7 +102,7 @@ FluentUIStyle 上游已测试 Qt 5.15.2。使用 CMake 3.16 构建时，关闭�
 | --- | --- | --- | --- |
 | CMake | 配置和生成构建文件 | `>= 3.16` | [CMake 文档](https://cmake.org/documentation/) |
 | 编译器 | 编译 C++17 代码 | `<项目指定版本>` | [MSVC](https://learn.microsoft.com/zh-cn/cpp/) · [GCC](https://gcc.gnu.org/) · [Clang](https://clang.llvm.org/) |
-| clang-format | C++/Qt 代码格式化 | `23.1.5` | [ClangFormat 手册](https://clang.llvm.org/docs/ClangFormat.html) |
+| clang-format | C++/Qt 代码格式化 | `23.1.6` | [ClangFormat 手册](https://clang.llvm.org/docs/ClangFormat.html) |
 | clang-tidy | 静态检查 | `<项目指定版本>` | [Clang-Tidy 手册](https://clang.llvm.org/extra/clang-tidy/) |
 | Doxygen | API 文档生成 | `<项目指定版本>` | [Doxygen 手册](https://www.doxygen.nl/manual/) |
 
