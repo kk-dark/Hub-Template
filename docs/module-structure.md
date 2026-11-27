@@ -35,6 +35,8 @@
 ├── CONTRIBUTING.md
 ├── test/
 │   ├── format_check.cpp
+│   ├── qt_additional_edge_cases_format_check.cpp
+│   ├── qt_comprehensive_format_check.cpp
 │   ├── qt_edge_cases_format_check.cpp
 │   ├── qt_format_check.cpp
 │   └── qt_special_format_check.cpp
