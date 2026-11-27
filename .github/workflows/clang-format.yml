@@ -1,23 +1,17 @@
-name: cpp-linter
-on: pull_request
-
+name: C++ formatting
+on: [push, pull_request]
+permissions:
+  contents: read
 jobs:
-  cpp-linter:
+  format:
+    name: clang-format
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
     steps:
-      - uses: actions/checkout@v7
-      - uses: cpp-linter/cpp-linter-action@v2
-        id: linter
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v4
         with:
-          version: '23'
-          style: file
-          tidy-checks: ''
-          format-review: true
-      - name: Fail on lint errors
-        if: steps.linter.outputs.checks-failed > 0
-        run: exit 1
+          persist-credentials: false
+      - run: |
+          python3 -m venv "$RUNNER_TEMP/format-env"
+          . "$RUNNER_TEMP/format-env/bin/activate"
+          python -m pip install clang-format==23.1.5
+          python tools/check_format.py
