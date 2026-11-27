@@ -2,7 +2,7 @@
 
 本文说明仓库当前的目录和文件职责。新增文件时，应放入与其用途对应的目录，并同步更新本文的目录树和说明。
 
-当前仓库以项目规范和协作配置为主，尚未设置 `src/`、`include/` 等源码目录。`test/format_check.cpp` 是用于验证 CI 格式检查的故意未格式化样例，不属于产品实现或正式测试代码。
+当前仓库以项目规范和协作配置为主，尚未设置 `src/`、`include/` 等源码目录。`test/format_check.cpp` 和 `test/qt_format_check.cpp` 是用于验证 CI 格式检查的故意未格式化样例，不属于产品实现或正式测试代码。
 
 ## 目录树
 
@@ -34,7 +34,8 @@
 │   └── technology-stack.md
 ├── CONTRIBUTING.md
 ├── test/
-│   └── format_check.cpp
+│   ├── format_check.cpp
+│   └── qt_format_check.cpp
 ├── tools/check_format.py
 ├── README.md
 └── VERSIONING.md
