@@ -9,7 +9,6 @@
 ```text
 .
 ├── .clang-format
-├── .gitea/workflows/clang-format.yml
 ├── .github/
 │   ├── ISSUE_TEMPLATE/
 │   │   ├── Bug提交.md
@@ -43,6 +42,7 @@
 
 | 文件 | 用途 |
 | --- | --- |
+| `.clang-format` | C++ 和 Qt 代码的统一排版配置，供本地工具、编辑器和 CI 共用。 |
 | `README.md` | 项目简介、使用说明和快速入口。 |
 | `CONTRIBUTING.md` | Issue、Commit、PR 和编码规范的入口说明。 |
 | `VERSIONING.md` | 版本号和发布版本的管理规则。 |
@@ -77,6 +77,9 @@ Issue 模板只负责收集问题信息，具体提交和 PR 规则见 [贡献�
 | `qt-coding-guidelines.md` | Qt 5.15.2 和 Qt 6 的专属编码规范。 |
 | `technology-stack.md` | C++、Qt、CMake、第三方库和工具版本基线。 |
 | `module-structure.md` | 仓库目录结构和文件职责说明。 |
+| `clang-format.md` | clang-format 排版规则、本地检查方法和 CI 配置说明。 |
+
+`tools/check_format.py` 位于 `docs/` 同级的 `tools/` 目录，用于使用固定版本 clang-format 检查或修复仓库中的 C++ 和 Qt 文件。
 
 规范之间的关系如下：
 
